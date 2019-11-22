@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     String thispass = db.userDao().getPassword(user,password);
 
                     if (thisuser.equals(user) && thispass.equals(password)) {
+                        User.user = thisuser;
                         Intent intent = new Intent(context, MainPage.class);
                         intent.putExtra("user", thisuser);
                         context.startActivity(intent);

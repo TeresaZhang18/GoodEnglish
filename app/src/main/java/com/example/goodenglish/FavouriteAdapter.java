@@ -46,7 +46,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
 
     public class FavouriteViewHolder extends RecyclerView.ViewHolder {
         public TextView wordname;
-        public ImageButton delete, search;
+        public ImageButton delete;
 
         public FavouriteViewHolder(@NonNull View itemView) {
             super(itemView);

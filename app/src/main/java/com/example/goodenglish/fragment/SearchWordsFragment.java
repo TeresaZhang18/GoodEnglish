@@ -2,6 +2,7 @@ package com.example.goodenglish.fragment;
 
 
 import android.content.Context;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -113,8 +114,13 @@ public class SearchWordsFragment extends Fragment {
                     UserDatabase db = UserDatabase.getInstance(context);
                     db.wordExplanationDao().addWord(thisword.getEntry(), User.user);
                     Toast.makeText(getContext(), "Word added successfully!",Toast.LENGTH_SHORT).show();
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "You need to search first!",Toast.LENGTH_SHORT).show();
+                } catch (SQLiteConstraintException e) {
+                    Toast.makeText(getContext(), "Word already exits!",Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), "Word already added!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Change a word and try again!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
