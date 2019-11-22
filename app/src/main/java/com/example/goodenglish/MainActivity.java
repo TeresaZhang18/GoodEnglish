@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.goodenglish.database.User;
 import com.example.goodenglish.database.UserDatabase;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     UserDatabase db = UserDatabase.getInstance(context);
                     String thisuser = db.userDao().getUser(user,password);
                     if (thisuser != null) {
+                        User.user = thisuser;
                         Intent intent = new Intent(context, MainPage.class);
                         intent.putExtra("user", thisuser);
                         context.startActivity(intent);

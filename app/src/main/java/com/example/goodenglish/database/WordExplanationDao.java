@@ -10,8 +10,12 @@ import java.util.List;
 
 @Dao
 public interface WordExplanationDao {
-    @Insert
-    void addWord(WordExplanation wordExplanation);
+
+    @Query("INSERT INTO WordExplanation (entry, userName) VALUES (:word,:user)")
+    void addWord(String word, String user);
+
+//    @Insert
+//    void addWord(WordExplanation wordExplanation);
 
     @Query("SELECT * FROM WORDEXPLANATION WHERE userName=:name")
     List<WordExplanation> getAllWord(String name);

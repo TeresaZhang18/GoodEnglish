@@ -8,7 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 //the explanation of word
-@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "userName", childColumns = "userName"))
+@Entity//(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "userName", childColumns = "userName"))
 public class WordExplanation {
     @PrimaryKey
     @NonNull
@@ -17,6 +17,7 @@ public class WordExplanation {
     @Ignore
     public Meaning meaning;
 
+//used to store personal favourite words
     public String userName;
 
     public class Meaning {

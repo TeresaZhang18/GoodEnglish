@@ -38,9 +38,10 @@ public class MyFavouriteFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         FavouriteAdapter favouriteAdapter = new FavouriteAdapter();
-        UserDatabase db = UserDatabase.getInstance(getContext());
-        favouriteAdapter.setData(db.wordExplanationDao().getAllWord(User.userName));
         recyclerView.setAdapter(favouriteAdapter);
+        UserDatabase db = UserDatabase.getInstance(getContext());
+        favouriteAdapter.setData(db.wordExplanationDao().getAllWord(User.user));
+
 
         return view;
     }

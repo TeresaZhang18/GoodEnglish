@@ -1,6 +1,7 @@
 package com.example.goodenglish;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goodenglish.database.UserDatabase;
 import com.example.goodenglish.database.WordExplanation;
+import com.example.goodenglish.fragment.SearchWordsFragment;
 
 import java.util.List;
 
@@ -35,11 +37,6 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
     public void onBindViewHolder(@NonNull FavouriteViewHolder holder, int position) {
         final WordExplanation wordposition =wordToAdapt.get(position);
         holder.wordname.setText(wordposition.getEntry());
-//        holder.noun.setText(wordposition.getMeaning().getNoun());
-//        holder.verb.setText(wordposition.getMeaning().getVerb());
-//        holder.adv.setText(wordposition.getMeaning().getAdverb());
-//        holder.adj.setText(wordposition.getMeaning().getAdjective());
-
     }
 
     @Override
@@ -48,16 +45,12 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
     }
 
     public class FavouriteViewHolder extends RecyclerView.ViewHolder {
-        public TextView wordname, noun, verb, adv, adj;
-        public ImageButton delete;
+        public TextView wordname;
+        public ImageButton delete, search;
 
         public FavouriteViewHolder(@NonNull View itemView) {
             super(itemView);
             wordname = itemView.findViewById(R.id.list_wordname);
-            noun = itemView.findViewById(R.id.list_noun);
-            verb = itemView.findViewById(R.id.list_verb);
-            adv = itemView.findViewById(R.id.list_adverb);
-            adj = itemView.findViewById(R.id.list_adjective);
             delete = itemView.findViewById(R.id.list_delete);
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,8 +58,23 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
                     Context context = v.getContext();
                     UserDatabase db = UserDatabase.getInstance(context);
                     db.wordExplanationDao().deleteWord(wordname.getText().toString());
+                    if (wordToAdapt.size()>0) {
+                        wordToAdapt.remove(getAdapterPosition());
+                        notifyDataSetChanged();
+                    }
                 }
             });
+//
+//            search = itemView.findViewById(R.id.list_search);
+//            search.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Context context =v.getContext();
+//                    Intent intent = new Intent(context, SearchWordsFragment.class);
+//                    intent.putExtra("word", wordname.getText().toString());
+//                    context.startActivity(intent);
+//                }
+//            });
         }
     }
 }

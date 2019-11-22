@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.goodenglish.database.User;
 import com.example.goodenglish.database.UserDatabase;
 import com.example.goodenglish.database.WordAssociation;
 import com.example.goodenglish.database.WordExample;
@@ -77,7 +78,7 @@ public class SearchWordsFragment extends Fragment {
 
 //this thread.sleep is used to wait for the working thread to get all content back
 //and assign a value to variable "thisword"
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
 
                     noun.setText(thisword.getMeaning().getNoun());
                     verb.setText(thisword.getMeaning().getVerb());
@@ -110,7 +111,7 @@ public class SearchWordsFragment extends Fragment {
                 try {
                     Context context = v.getContext();
                     UserDatabase db = UserDatabase.getInstance(context);
-                    db.wordExplanationDao().addWord(thisword);
+                    db.wordExplanationDao().addWord(thisword.getEntry(), User.user);
                     Toast.makeText(getContext(), "Word added successfully!",Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(getContext(), "Word already added!",Toast.LENGTH_SHORT).show();
@@ -143,13 +144,7 @@ public class SearchWordsFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-                Headers responseHeaders = response.headers();
-                //for error checking
-                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-                System.out.println(response.body().toString());
+                //System.out.println(response.body().toString());
 
                 Gson gson = new Gson();
                 String responseString = response.body().string();
@@ -174,13 +169,7 @@ public class SearchWordsFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-                Headers responseHeaders = response.headers();
-                //for error checking
-                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-                System.out.println(response.body().toString());
+                //System.out.println(response.body().toString());
 
                 Gson gson = new Gson();
                 String responseString = response.body().string();
@@ -205,13 +194,7 @@ public class SearchWordsFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-                Headers responseHeaders = response.headers();
-                //for error checking
-                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-                System.out.println(response.body().toString());
+                //System.out.println(response.body().toString());
 
                 Gson gson = new Gson();
                 String responseString = response.body().string();

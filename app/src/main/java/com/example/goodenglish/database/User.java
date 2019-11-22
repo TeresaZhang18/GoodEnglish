@@ -3,15 +3,21 @@ package com.example.goodenglish.database;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class User {
+//this is the user that can be access through the whole project
+//use to identify user information
+    @Ignore
+    public static String user;
+
     @PrimaryKey
     @NonNull
-    public static String userName;
+    public String userName;
 
-    public static String userPassword;
+    public String userPassword;
 
     public User(String userName, String userPassword) {
         this.userName = userName;
