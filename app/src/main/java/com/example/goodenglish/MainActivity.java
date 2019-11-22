@@ -48,15 +48,17 @@ public class MainActivity extends AppCompatActivity {
                     Context context = v.getContext();
                     UserDatabase db = UserDatabase.getInstance(context);
                     String thisuser = db.userDao().getUser(user,password);
-                    if (thisuser != null) {
-                        User.user = thisuser;
+                    String thispass = db.userDao().getPassword(user,password);
+
+                    if (thisuser.equals(user) && thispass.equals(password)) {
                         Intent intent = new Intent(context, MainPage.class);
                         intent.putExtra("user", thisuser);
                         context.startActivity(intent);
-                    } else if (thisuser == null) {
+                    } else  {
                         Toast.makeText(getApplicationContext(), "Incorrect user name or password.",Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Incorrect user name or password.",Toast.LENGTH_SHORT).show();
                 }
 

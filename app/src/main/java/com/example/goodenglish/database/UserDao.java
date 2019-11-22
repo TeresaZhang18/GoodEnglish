@@ -15,6 +15,9 @@ public interface UserDao {
     @Query("SELECT userName FROM User WHERE userName = :name AND userPassword = :password ")
     String getUser (String name, String password);
 
+    @Query("SELECT userPassword FROM User WHERE userName = :name AND userPassword = :password ")
+    String getPassword (String name, String password);
+
     @Query("UPDATE User SET userPassword=:pass WHERE userName=:name")
     void changePassword (String pass, String name);
 

@@ -27,7 +27,6 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
 
         Intent intent = getIntent();
-
         String thisuser = intent.getStringExtra("user");
         UserDatabase db = UserDatabase.getInstance(this);
 
