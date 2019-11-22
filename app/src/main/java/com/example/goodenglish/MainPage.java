@@ -14,7 +14,6 @@ import com.example.goodenglish.database.UserDatabase;
 import com.example.goodenglish.fragment.MyFavouriteFragment;
 import com.example.goodenglish.fragment.ProfileFragment;
 import com.example.goodenglish.fragment.QuizFragment;
-import com.example.goodenglish.fragment.ResourcesFragment;
 import com.example.goodenglish.fragment.SearchWordsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -49,10 +48,6 @@ public class MainPage extends AppCompatActivity {
                     return true;
                 } else if (menuItem.getItemId() == R.id.quiz_nav) {
                     Fragment fragment = new QuizFragment();
-                    swapFragment(fragment);
-                    return true;
-                } else if (menuItem.getItemId() == R.id.resource_nav) {
-                    Fragment fragment = new ResourcesFragment();
                     swapFragment(fragment);
                     return true;
                 } else if (menuItem.getItemId() == R.id.profile_nav) {

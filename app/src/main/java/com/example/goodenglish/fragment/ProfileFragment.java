@@ -25,9 +25,11 @@ import com.example.goodenglish.database.UserDatabase;
  */
 public class ProfileFragment extends Fragment {
 
-    public Button change, logout;
+    public Button change, logout, share;
     public TextView name;
     public ImageView imageView;
+    Intent shareIntent;
+    String shareText = "Come try this amazing app!";
 
 
     public ProfileFragment() {
@@ -63,6 +65,18 @@ public class ProfileFragment extends Fragment {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, ChangePassword.class);
                 context.startActivity(intent);
+            }
+        });
+
+        share = v.findViewById(R.id.share);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT,"My App");
+                shareIntent.putExtra(Intent.EXTRA_TEXT,shareText);
+                startActivity(Intent.createChooser(shareIntent,"Share via"));
             }
         });
 

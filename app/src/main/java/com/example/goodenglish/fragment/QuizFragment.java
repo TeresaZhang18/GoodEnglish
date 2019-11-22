@@ -1,9 +1,12 @@
 package com.example.goodenglish.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +17,17 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.goodenglish.QuizAdapter;
 import com.example.goodenglish.R;
 import com.example.goodenglish.database.MyQuiz;
+import com.example.goodenglish.database.User;
+import com.example.goodenglish.database.UserDatabase;
 import com.example.goodenglish.database.WordExplanation;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,6 +48,8 @@ public class QuizFragment extends Fragment {
     public String selectedarea;
 
     public Button start;
+
+    RecyclerView recyclerView;
 
     public QuizFragment() {
         // Required empty public constructor
@@ -69,6 +79,10 @@ public class QuizFragment extends Fragment {
             }
         });
 
+        recyclerView = v.findViewById(R.id.quiz_recyc);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
 
 //set area spinner
         area = v.findViewById(R.id.areaspinner);
@@ -94,11 +108,35 @@ public class QuizFragment extends Fragment {
                 if (selectedarea==null || selectedlevel==null){
                     Toast.makeText(getContext(), "Please select quiz level and area!",Toast.LENGTH_SHORT).show();
                 } else {
-                    getQuiz(selectedarea,selectedlevel);
 
+                    try {
+                        getQuiz(selectedarea,selectedlevel);
+                        Toast.makeText(getContext(), "Waiting quiz to come online.",Toast.LENGTH_SHORT).show();
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getContext(), "Bad Internet connection, try again!",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    UserDatabase db = UserDatabase.getInstance(getContext());
+                    String quiz = db.myQuizDao().returnQuiz(selectedarea,selectedlevel);
+                    System.out.println(quiz);
+
+                    Gson gson = new Gson();
+                    ArrayList<MyQuiz.QuizList> quizlist = gson.fromJson(quiz, new TypeToken<ArrayList<MyQuiz.QuizList>>(){}.getType());
+
+                    //test
+                    System.out.println(quizlist.get(0).getOption());
+
+                    QuizAdapter quizAdapter = new QuizAdapter();
+                    recyclerView.setAdapter(quizAdapter);
+                    quizAdapter.setData(quizlist);
                 }
             }
         });
+
+
 
         return v;
     }
@@ -125,10 +163,9 @@ public class QuizFragment extends Fragment {
                 Gson gson = new Gson();
                 String json = response.body().string();
                 MyQuiz myQuiz = gson.fromJson(json, MyQuiz.class);
-                System.out.println("Area: " + myQuiz.getArea());
-                System.out.println("Level: " + myQuiz.getLevel());
-                System.out.println("Question size: " + myQuiz.getQuizLists().size());
-                myQuiz.getQuizLists().get(0).getCorrect();
+
+                UserDatabase db = UserDatabase.getInstance(getContext());
+                db.myQuizDao().createQuiz(selectedarea,Integer.parseInt(selectedlevel),myQuiz.getQuizLists());
 
             }
 

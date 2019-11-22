@@ -16,10 +16,6 @@
         android:title="Quiz"
         android:icon="@drawable/ic_quiz_black_24dp"/>
 
-    <item
-        android:id="@+id/resource_nav"
-        android:title="Resource"
-        android:icon="@drawable/ic_resource_black_24dp"/>
 
     <item
         android:id="@+id/profile_nav"

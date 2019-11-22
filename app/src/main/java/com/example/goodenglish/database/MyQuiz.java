@@ -1,13 +1,22 @@
 package com.example.goodenglish.database;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+@Entity
 public class MyQuiz {
+    @PrimaryKey(autoGenerate = true)
+    public int key;
     public String area;
     public int level;
+
     @SerializedName("quizlist")
+    @TypeConverters(Converters.class)
     public ArrayList<QuizList> quizLists;
 
     public String getArea() {

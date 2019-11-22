@@ -7,46 +7,62 @@
     tools:context=".fragment.QuizFragment"
     android:background="@color/background">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:text="Choose a level:"
-        android:textSize="18dp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/levelspinner"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="13dp"
-        android:text="Choose an area:"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <Spinner
-        android:id="@+id/areaspinner"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/levelspinner" />
+        android:layout_marginEnd="20dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose a level:"
+                android:textSize="18dp"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:id="@+id/levelspinner"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose an area:"
+                android:textSize="18dp"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:id="@+id/areaspinner"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
+
+
 
     <Button
         android:id="@+id/startbutton"
@@ -54,17 +70,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:text="Start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/table" />
 
     <androidx.recyclerview.widget.RecyclerView
         app:layout_constraintTop_toBottomOf="@id/startbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/quiz_recyc"
-        android:layout_marginTop="10dp"/>
+        android:layout_height="0dp"
+        android:id="@+id/quiz_recyc"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -64,17 +64,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
                     }
                 }
             });
-//
-//            search = itemView.findViewById(R.id.list_search);
-//            search.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Context context =v.getContext();
-//                    Intent intent = new Intent(context, SearchWordsFragment.class);
-//                    intent.putExtra("word", wordname.getText().toString());
-//                    context.startActivity(intent);
-//                }
-//            });
+
         }
     }
 }
